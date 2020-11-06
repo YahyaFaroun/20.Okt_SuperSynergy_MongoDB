@@ -1,0 +1,44 @@
+<%- include('partials/head.ejs') %>
+
+<body>
+    <%- include('partials/header.ejs') %>
+    <main id="mainProfiles">
+        <section>
+            <% profiles.forEach(element => { %>
+            <section id="profilesSection">
+                <img src="<%= element.picture %> " alt="">
+                <article>
+                    <h1><%=element.firstName%><%= element.lastName%> </h1>
+                    <h3>ÜBER MICH</h3>
+                    <hr>
+                    <p><%= element.intro %> </p>
+                    <div id="profileBoxes">
+                        <div>
+                            <h3>Das kann ich</h3>
+                            <p><%= element.strength %> </p>
+                        </div>
+                        <div>
+                            <h3>Meine Projekte</h3>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="<%= element.xing %> ">
+                            <ion-icon name="logo-xing"></ion-icon>
+                        </a>
+                        <a href="<%= element.github %>">
+                            <ion-icon name="logo-linkedin"></ion-icon>
+                        </a>
+                        <a href="<%= element.linkedin %>">
+                            <ion-icon name="logo-github"></ion-icon>
+                        </a>
+                    </div>
+                </article>
+            </section>
+            <% }) %>
+        </section>
+    </main>
+    <%- include('partials/footer.ejs') %>
+</body>
+
+</html>

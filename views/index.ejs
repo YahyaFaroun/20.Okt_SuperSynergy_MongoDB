@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <%- include('partials/header.ejs') %>
+    <section id="superFeed">
+        <h2>Super Feed</h2>
+        <% allPosts.forEach(element => { %>
+        <% if (element.type === 'request') { %>
+        <div class="request">
+            <div class="card-header">
+                <img src=<%= element.author_url %> alt="" class="profile-picture">
+                <div class="card-header-info">
+                    <h5 class="name"><%= element.author %></h5>
+                    <h5 class="time"><%= moment(element.createdAt).format('DD.MM.YYYY HH:mm') %> </h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="body-text"><%= element.request %> </h5>
+            </div>
+            <div class="card-footer">
+                <div class="footer-info">
+                    <div class="comment-box" onclick="toggleComments('<%= element._id %>')">
+                        <img src="/img/Comment.svg" alt="" class="comment">
+                        <h5 class="body-text">Comments</h5>
+                    </div>
+                    <div class="like-box">
+                        <img src="/img/Like.svg" alt="" class="like">
+                        <h5 class="like-number">20</h5>
+                    </div>
+                </div>
+                <div id=<%= element._id %> class="toggle">
+                    <% element.comments.forEach(elt => { %>
+                    <div class="single-comment">
+                        <div class="card-header">
+                            <img src=<%= elt.author_url %> alt="" class="profile-picture-comment">
+                            <div class="card-header-info">
+                                <h5 class="time"><%= moment(elt.createdAt).format('DD.MM.YYYY HH:mm') %> </h5>
+                                <h5 class="name"><%= elt.author %> hat geantwortet:</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="body-text"><%= elt.comment %> </p>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <h5 class="name">Neuer Kommentar:</h5>
+                    <form action="/newFeedComment/<%= element._id %>" method="POST" class="comment-form">
+                        <textarea name="comment" id="comment" cols="30" rows="10"
+                            placeholder="write a comment"></textarea>
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% } else if (element.type === 'profile') {%>
+        <div class="request">
+            <div class="card-header">
+                <img src=<%= element.picture %> alt="" class="profile-picture">
+                <div class="card-header-info">
+                    <h5 class="name"><%= element.firstName %> hat sich angemeldet</h5>
+                    <h5 class="time"><%= moment(element.createdAt).format('DD.MM.YYYY HH:mm') %> </h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="body-text"><%= element.intro %> </h5>
+            </div>
+            <div class="card-footer">
+                <div class="footer-info">
+                    <div class="comment-box" onclick="toggleComments('<%= element._id %>')">
+                        <img src="/img/Comment.svg" alt="" class="comment">
+                        <h5 class="body-text">Comments</h5>
+                    </div>
+                    <div class="like-box">
+                        <img src="/img/Like.svg" alt="" class="like">
+                        <h5 class="like-number">20</h5>
+                    </div>
+                </div>
+                <div id=<%= element._id %> class="toggle">
+                    <% element.comments.forEach(elt => { %>
+                    <div class="single-comment">
+                        <div class="card-header">
+                            <img src=<%= elt.author_url %> alt="" class="profile-picture-comment">
+                            <div class="card-header-info">
+                                <h5 class="time"><%= moment(elt.createdAt).format('DD.MM.YYYY HH:mm') %> </h5>
+                                <h5 class="name"><%= elt.author %> hat geantwortet:</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="body-text"><%= elt.comment %> </p>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <h5 class="name">Neuer Kommentar:</h5>
+                    <form action="/newLoginComment/<%= element._id %>" method="POST" class="comment-form">
+                        <textarea name="comment" id="comment" cols="30" rows="10"
+                            placeholder="write a comment"></textarea>
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% } else if (element.type === "project") { %>
+        <div class="request">
+            <div class="card-header">
+                <img src=<%= element.author_url %> alt="" class="profile-picture">
+                <div class="card-header-info">
+                    <h5 class="name"><%= element.author %> hat ein Projekt geteilt</h5>
+                    <h5 class="time"><%= moment(element.createdAt).format('DD.MM.YYYY HH:mm') %> </h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="name"><%= element.title %> </h5>
+                    <article class="overlayBox" style='margin: 1vh 0;'>
+                        <img src=<%= element.project_img %> alt="" class="overlay-img">
+                        <div class="overlay">
+                            <a href="<%= element.project_url %>" target="_blank">Website</a>
+                            <a href="<%= element.github_url %> " target="_blank">Github</a>
+                        </div>
+                    </article>
+                    <h5 class="body-text"><%= element.request %> </h5>
+            </div>
+            <div class="card-footer">
+                <div class="footer-info">
+                    <div class="comment-box" onclick="toggleComments('<%= element._id %>')">
+                        <img src="/img/Comment.svg" alt="" class="comment">
+                        <h5 class="body-text">Comments</h5>
+                    </div>
+                    <div class="like-box">
+                        <img src="/img/Like.svg" alt="" class="like">
+                        <h5 class="like-number">20</h5>
+                    </div>
+                </div>
+                <div id=<%= element._id %> class="toggle">
+                    <% element.comments.forEach(elt => { %>
+                    <div class="single-comment">
+                        <div class="card-header">
+                            <img src=<%= elt.author_url %> alt="" class="profile-picture-comment">
+                            <div class="card-header-info">
+                                <h5 class="time"><%= moment(elt.createdAt).format('DD.MM.YYYY HH:mm') %> </h5>
+                                <h5 class="name"><%= elt.author %> hat geantwortet:</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="body-text"><%= elt.comment %> </h5>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <h5 class="name">Neuer Kommentar:</h5>
+                    <form action="/newProjectComment/<%= element._id %>" method="POST" class="comment-form">
+                        <textarea name="comment" id="comment" cols="30" rows="10"
+                            placeholder="write a comment"></textarea>
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% }}) %>
+    </section>
+    <%- include('partials/footer.ejs') %>
+    <script>
+        function toggleComments(id) {
+            let comment = document.getElementById(id)
+            comment.classList.toggle('toggle')
+        }
+    </script>
+</body>
+
+</html>

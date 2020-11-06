@@ -1,0 +1,24 @@
+<%- include('partials/head.ejs') %>
+
+<body>
+    <%- include('partials/header.ejs') %>
+    <main id="mainIntro">
+        <section>
+            <h2>Bitte vervollständige dein Profil</h2>
+            <form action="/updateIntro/<%= user.googleId %> " method="POST" class="forms">
+                <input type="text" name="intro" id="intro" placeholder="stell dich kurz vor... (required)" style="height: 10vh"
+                    required>
+                <input type="text" name="strength" id="strength" placeholder="was kannst du? (required)" required>
+
+                <input type="text" name="picture" id="picture" placeholder="Profilbild (required)" required>
+                <input type="text" name="github" id="github" placeholder="github">
+                <input type="text" name="linkedin" id="linkedin" placeholder="linkedin">
+                <input type="text" name="xing" id="xing" placeholder="xing">
+                <input type="submit" value="submit" class="btn">
+            </form>
+        </section>
+        <img src="/img/hands.svg" alt="">
+    </main>
+</body>
+
+</html>

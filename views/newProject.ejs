@@ -1,0 +1,60 @@
+<%- include('partials/head.ejs') %>
+
+<body>
+    <%- include('partials/header.ejs') %>
+    <main id="allProjects">
+        <section class="textForAdding">
+            <a href="" id="toggle-btn">ADD YOUR PROJECT</a>
+        </section>
+        <hr class="line">
+        <section id="showForm" class="hide">
+            <form action="/addProject" method="POST" class="forms">
+                <input type="text" name="title" id="title" placeholder="title  (required)" required>
+                <input type="text" name="project_img" id="project_img" placeholder="project imgage  (required)" required>
+                <input type="text" name="project_url" id="project_url" placeholder="project url  (required)" required>
+                <input type="text" name="github_url" id="github_url" placeholder="github url  (required)" required>
+                <textarea name="request" id="request" cols="30" rows="10" placeholder="desciption...  (required)" required></textarea>
+                <input type="submit" value="submit" class="btn">
+            </form>
+            <hr class="line">
+        </section>
+        <section id="projects">
+            <% projects.forEach(element => { %>
+            <section>
+                <article class="overlayBox">
+                    <img src=<%= element.project_img %> alt="">
+                    <div class="overlay">
+                        <a href="<%= element.project_url %>" target="_blank">Website</a>
+                        <a href="<%= element.github_url %> " target="_blank">Github</a>
+                    </div>
+                </article>
+                <article id="projectsInfos">
+                    <div>
+                        <div id="projectsTitle">
+                            <h1><%= element.title %></h1>
+                            <h6><%= element.timestamps %> </h6>
+                        </div>
+                        <p><%= element.request %> </p>
+                        <div id="projectsAuthor">
+                            <img src="<%= element.author_url %> " alt="" class="profile-picture">
+                            <h4><%= element.author %> </h4>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <% }) %>
+        </section>
+    </main>
+    <%- include('partials/footer.ejs') %>
+    <script>
+        const showForm = document.getElementById("showForm")
+        const toggleBtn = document.getElementById("toggle-btn")
+        toggleBtn.addEventListener("click", (e) => {
+            e.preventDefault()
+            showForm.classList.toggle('hide')
+        })
+    </script>
+</body>
+
+</html>
